@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#2A2A2A"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/back"
+            android:src="@android:drawable/ic_media_previous"
+            android:scaleType="center"/>
+
+
+        <TextView
+            android:id="@+id/txtMovieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Oppenheimer"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="U/A  |  English  |  ScreenX"
+            android:textColor="#CCCCCC"
+            android:gravity="center"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stars (90' Mall)"
+                android:textColor="#AAAAAA"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hall 1"
+                android:textColor="#AAAAAA"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="13.04.2025"
+                android:textColor="#AAAAAA"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="22:15"
+                android:textColor="#AAAAAA"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgScreen"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/img"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+
+    <GridLayout
+        android:id="@+id/gridSeats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="5"
+        android:padding="16dp"
+        android:layout_marginTop="10dp">
+
+        <Button android:id="@+id/seat1" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat2" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat3" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat4" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat5" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat6" style="@style/SeatStyle"/>
+
+        <Button android:id="@+id/seat7" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat8" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat9" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat10" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat11" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat12" style="@style/SeatStyle"/>
+
+        <Button android:id="@+id/seat13" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat14" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat15" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat16" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat17" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat18" style="@style/SeatStyle"/>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/txtSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selected Seats: 0"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBook"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Book Seats"
+            android:textColor="#FFFFFF"
+            android:enabled="false"
+            android:backgroundTint="#777777"/>
+
+        <Button
+            android:id="@+id/btnSnacks"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Move to Snacks"
+            android:enabled="false"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#777777"/>
+    </LinearLayout>
+
+
+</LinearLayout>

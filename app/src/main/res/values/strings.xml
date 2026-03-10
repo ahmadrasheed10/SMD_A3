@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="app_name_styled">
+    <![CDATA[
+    <font color="#FF0000">Cine</font><font color="#FFFFFF">FAST</font>
+    ]]>
+</string>
+
+</resources>
