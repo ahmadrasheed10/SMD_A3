@@ -52,79 +52,72 @@ public class SeatSelectionActivity extends AppCompatActivity {
             txtMovieName.setText(movie);
 
         int[] seats = {
-                R.id.seat1,R.id.seat2,R.id.seat3,R.id.seat4,R.id.seat5,R.id.seat6,
-                R.id.seat7,R.id.seat8,R.id.seat9,R.id.seat10,R.id.seat11,R.id.seat12,
-                R.id.seat13,R.id.seat14,R.id.seat15,R.id.seat16,R.id.seat17,R.id.seat18
+                R.id.seat1, R.id.seat2, R.id.seat3, R.id.seat4, R.id.seat5, R.id.seat6,
+                R.id.seat7, R.id.seat8, R.id.seat9, R.id.seat10, R.id.seat11, R.id.seat12,
+                R.id.seat13, R.id.seat14, R.id.seat15, R.id.seat16, R.id.seat17, R.id.seat18,
+                R.id.seat19, R.id.seat20, R.id.seat21, R.id.seat22, R.id.seat23, R.id.seat24,
+                R.id.seat25, R.id.seat26, R.id.seat27, R.id.seat28, R.id.seat29, R.id.seat30,
+                R.id.seat31, R.id.seat32, R.id.seat33, R.id.seat34, R.id.seat35, R.id.seat36
         };
 
-        for (int id : seats) {
+        boolean isComingSoon = getIntent().getBooleanExtra("isComingSoon", false);
+        String trailerUrl = getIntent().getStringExtra("trailerUrl");
 
-            Button seat = findViewById(id);
+        if (isComingSoon) {
+            btnBook.setText("Coming Soon");
+            btnBook.setEnabled(false);
+            btnBook.setClickable(false);
+            
+            btnSnacks.setText("Watch Trailer");
+            btnSnacks.setEnabled(true);
+            btnSnacks.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.seat_selected));
+            btnSnacks.setOnClickListener(v -> {
+                if (trailerUrl != null) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(trailerUrl));
+                    startActivity(intent);
+                }
+            });
+        } else {
+            btnBook.setOnClickListener(v -> {
+                android.widget.Toast.makeText(this, "Booking Confirmed!", android.widget.Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, TicketSummaryActivity.class);
+                intent.putExtra("movie", movie);
+                intent.putExtra("ticketTotal", selectedSeats.size() * PRICE);
+                intent.putExtra("snacksTotal", 0);
+                intent.putStringArrayListExtra("seatsList", selectedSeats);
+                startActivity(intent);
+            });
 
-            String label = getSeatLabel(id);
-            seat.setText(label);
-
-            if (bookedSeats.contains(label)) {
-
-                seat.setEnabled(false);
-
-                seat.setBackgroundTintList(
-                        ContextCompat.getColorStateList(this, R.color.seat_booked));
-
-            } else {
-
-                seat.setOnClickListener(v -> toggleSeat(seat, label));
-            }
+            btnSnacks.setOnClickListener(v -> {
+                Intent intent = new Intent(this, SnacksActivity.class);
+                intent.putExtra("movie", movie);
+                intent.putStringArrayListExtra("seatsList", selectedSeats);
+                intent.putExtra("ticketTotal", selectedSeats.size() * PRICE);
+                intent.putStringArrayListExtra("seatsList", selectedSeats);
+                startActivity(intent);
+            });
         }
 
-        btnBook.setOnClickListener(v -> {
+        for (int i = 0; i < seats.length; i++) {
+            Button seat = findViewById(seats[i]);
+            String label = "" + (char)('A' + (i / 6)) + ((i % 6) + 1);
+            seat.setText(label);
 
-            Intent intent = new Intent(this, TicketSummaryActivity.class);
-            intent.putExtra("movie", movie);
-            intent.putExtra("ticketTotal", selectedSeats.size() * PRICE);
-            intent.putExtra("snacksTotal", 0);
-            intent.putStringArrayListExtra("seatsList", selectedSeats);
-
-            startActivity(intent);
-        });
-
-        btnSnacks.setOnClickListener(v -> {
-
-            Intent intent = new Intent(this, SnacksActivity.class);
-            intent.putExtra("movie", movie);
-            intent.putStringArrayListExtra("seatsList", selectedSeats);
-            intent.putExtra("ticketTotal", selectedSeats.size() * PRICE);
-            intent.putStringArrayListExtra("seatsList", selectedSeats);
-
-            startActivity(intent);
-        });
+            if (isComingSoon) {
+                seat.setEnabled(false);
+                seat.setClickable(false);
+            } else {
+                if (bookedSeats.contains(label)) {
+                    seat.setEnabled(false);
+                    seat.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.seat_booked));
+                } else {
+                    seat.setOnClickListener(v -> toggleSeat(seat, label));
+                }
+            }
+        }
     }
 
-    private String getSeatLabel(int seatId) {
-
-        if (seatId == R.id.seat1) return "A1";
-        else if (seatId == R.id.seat2) return "A2";
-        else if (seatId == R.id.seat3) return "A3";
-        else if (seatId == R.id.seat4) return "A4";
-        else if (seatId == R.id.seat5) return "A5";
-        else if (seatId == R.id.seat6) return "B1";
-
-        else if (seatId == R.id.seat7) return "B2";
-        else if (seatId == R.id.seat8) return "B3";
-        else if (seatId == R.id.seat9) return "B4";
-        else if (seatId == R.id.seat10) return "B5";
-        else if (seatId == R.id.seat11) return "C1";
-        else if (seatId == R.id.seat12) return "C2";
-
-        else if (seatId == R.id.seat13) return "C3";
-        else if (seatId == R.id.seat14) return "C4";
-        else if (seatId == R.id.seat15) return "C5";
-        else if (seatId == R.id.seat16) return "D1";
-        else if (seatId == R.id.seat17) return "C2";
-        else if (seatId == R.id.seat18) return "D3";
-
-        return "";
-    }
+        // Removed getSeatLabel since it is no longer needed
 
     private void toggleSeat(Button seat, String label) {
 

@@ -94,34 +94,85 @@
 
     <GridLayout
         android:id="@+id/gridSeats"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="5"
-        android:padding="16dp"
+        android:columnCount="7"
+        android:layout_gravity="center"
+        android:padding="8dp"
         android:layout_marginTop="10dp">
 
+        <!-- Row 1 -->
         <Button android:id="@+id/seat1" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat2" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat3" style="@style/SeatStyle"/>
+        <Space android:layout_width="20dp" android:layout_height="35dp"/>
         <Button android:id="@+id/seat4" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat5" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat6" style="@style/SeatStyle"/>
 
+        <!-- Row 2 -->
         <Button android:id="@+id/seat7" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat8" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat9" style="@style/SeatStyle"/>
+        <Space android:layout_width="20dp" android:layout_height="35dp"/>
         <Button android:id="@+id/seat10" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat11" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat12" style="@style/SeatStyle"/>
 
+        <!-- Row 3 -->
         <Button android:id="@+id/seat13" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat14" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat15" style="@style/SeatStyle"/>
+        <Space android:layout_width="20dp" android:layout_height="35dp"/>
         <Button android:id="@+id/seat16" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat17" style="@style/SeatStyle"/>
         <Button android:id="@+id/seat18" style="@style/SeatStyle"/>
 
+        <!-- Row 4 -->
+        <Button android:id="@+id/seat19" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat20" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat21" style="@style/SeatStyle"/>
+        <Space android:layout_width="20dp" android:layout_height="35dp"/>
+        <Button android:id="@+id/seat22" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat23" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat24" style="@style/SeatStyle"/>
+
+        <!-- Row 5 -->
+        <Button android:id="@+id/seat25" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat26" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat27" style="@style/SeatStyle"/>
+        <Space android:layout_width="20dp" android:layout_height="35dp"/>
+        <Button android:id="@+id/seat28" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat29" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat30" style="@style/SeatStyle"/>
+
+        <!-- Row 6 -->
+        <Button android:id="@+id/seat31" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat32" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat33" style="@style/SeatStyle"/>
+        <Space android:layout_width="20dp" android:layout_height="35dp"/>
+        <Button android:id="@+id/seat34" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat35" style="@style/SeatStyle"/>
+        <Button android:id="@+id/seat36" style="@style/SeatStyle"/>
     </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View android:layout_width="15dp" android:layout_height="15dp" android:background="@color/seat_booked" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Booked" android:textColor="#FFFFFF" android:layout_marginStart="8dp" android:layout_marginEnd="16dp"/>
+
+        <View android:layout_width="15dp" android:layout_height="15dp" android:background="@color/seat_selected" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yours" android:textColor="#FFFFFF" android:layout_marginStart="8dp" android:layout_marginEnd="16dp"/>
+
+        <View android:layout_width="15dp" android:layout_height="15dp" android:background="@color/seat_available" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Available" android:textColor="#FFFFFF" android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtSelected"
@@ -130,7 +181,8 @@
         android:text="Selected Seats: 0"
         android:textColor="#FFFFFF"
         android:gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"

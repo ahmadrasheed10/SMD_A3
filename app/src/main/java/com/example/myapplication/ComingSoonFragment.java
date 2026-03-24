@@ -32,7 +32,7 @@ public class ComingSoonFragment extends Fragment {
         comingSoonMovies.add(new Movie("Dr Strange 3", "Action", "140 min",
                 R.drawable.strange, "https://www.youtube.com/watch?v=aWzlQ2N6qqg"));
 
-        MovieAdapter adapter = new MovieAdapter(getActivity(), comingSoonMovies);
+        MovieAdapter adapter = new MovieAdapter(getActivity(), comingSoonMovies, true);
         recyclerView.setAdapter(adapter);
 
         return view;

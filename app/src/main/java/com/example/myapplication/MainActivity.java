@@ -18,9 +18,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void navigateToSeatSelection(String movieName) {
+    public void navigateToSeatSelection(String movieName, boolean isComingSoon, String trailerUrl) {
         Intent intent = new Intent(this, SeatSelectionActivity.class);
         intent.putExtra("movie", movieName);
+        intent.putExtra("isComingSoon", isComingSoon);
+        intent.putExtra("trailerUrl", trailerUrl);
         startActivity(intent);
     }
 }

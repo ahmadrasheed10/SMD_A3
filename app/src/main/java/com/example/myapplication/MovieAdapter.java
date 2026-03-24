@@ -19,10 +19,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private ArrayList<Movie> movieList;
     private Context context;
+    private boolean isComingSoon;
 
-    public MovieAdapter(Context context, ArrayList<Movie> movieList) {
+    public MovieAdapter(Context context, ArrayList<Movie> movieList, boolean isComingSoon) {
         this.context = context;
         this.movieList = movieList;
+        this.isComingSoon = isComingSoon;
     }
 
     @NonNull
@@ -47,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         holder.btnBookSeats.setOnClickListener(v -> {
             if (context instanceof MainActivity) {
-                ((MainActivity) context).navigateToSeatSelection(movie.getName());
+                ((MainActivity) context).navigateToSeatSelection(movie.getName(), isComingSoon, movie.getTrailerUrl());
             }
         });
     }

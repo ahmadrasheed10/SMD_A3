@@ -32,7 +32,7 @@ public class NowShowingFragment extends Fragment {
         nowShowingMovies.add(new Movie("Dr Strange", "Action", "152 min",
                 R.drawable.strange, "https://www.youtube.com/watch?v=aWzlQ2N6qqg"));
 
-        MovieAdapter adapter = new MovieAdapter(getActivity(), nowShowingMovies);
+        MovieAdapter adapter = new MovieAdapter(getActivity(), nowShowingMovies, false);
         recyclerView.setAdapter(adapter);
 
         return view;
