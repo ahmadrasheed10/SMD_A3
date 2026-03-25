@@ -89,12 +89,18 @@ public class SeatSelectionActivity extends AppCompatActivity {
             });
 
             btnSnacks.setOnClickListener(v -> {
-                Intent intent = new Intent(this, SnacksActivity.class);
-                intent.putExtra("movie", movie);
-                intent.putStringArrayListExtra("seatsList", selectedSeats);
-                intent.putExtra("ticketTotal", selectedSeats.size() * PRICE);
-                intent.putStringArrayListExtra("seatsList", selectedSeats);
-                startActivity(intent);
+                SnacksFragment snacksFragment = new SnacksFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("movie", movie);
+                bundle.putStringArrayList("seatsList", selectedSeats);
+                bundle.putInt("ticketTotal", selectedSeats.size() * PRICE);
+                bundle.putInt("seats", selectedSeats.size());
+                snacksFragment.setArguments(bundle);
+                
+                getSupportFragmentManager().beginTransaction()
+                        .replace(android.R.id.content, snacksFragment)
+                        .addToBackStack(null)
+                        .commit();
             });
         }
 
