@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment {
                     ContextCompat.getColorStateList(requireContext(), R.color.seat_available));
         });
 
-        // TabLayout + ViewPager2
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
 

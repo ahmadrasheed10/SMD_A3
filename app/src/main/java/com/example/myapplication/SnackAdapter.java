@@ -19,6 +19,7 @@ public class SnackAdapter extends ArrayAdapter<Snack> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         Snack snack = getItem(position);
 
         if (convertView == null) {

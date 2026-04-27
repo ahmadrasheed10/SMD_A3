@@ -33,10 +33,12 @@ public class TicketSummaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ticket_summary, container, false);
 
         if (getArguments() != null) {
+
             movie = getArguments().getString("movie");
             ticketTotal = getArguments().getInt("ticketTotal", 0);
             snacksTotal = getArguments().getInt("snacksTotal", 0);
             seatsList = getArguments().getStringArrayList("seatsList");
+        
         }
 
         ImageView imgMovie = view.findViewById(R.id.imgMovie);

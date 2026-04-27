@@ -24,7 +24,13 @@ public class SplashActivity extends AppCompatActivity {
         logo.startAnimation(animation);
 
         new Handler(getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
+            SessionManager sessionManager = new SessionManager(SplashActivity.this);
+            Intent intent;
+            if (sessionManager.isLoggedIn()) {
+                intent = new Intent(SplashActivity.this, MainActivity.class);
+            } else {
+                intent = new Intent(SplashActivity.this, OnboardingActivity.class);
+            }
             startActivity(intent);
             finish();
         }, SPLASH_TIME);
