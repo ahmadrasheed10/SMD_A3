@@ -1,0 +1,52 @@
+{
+  "movies": [
+    {
+      "name": "The Oppenheimer",
+      "genre": "Action",
+      "duration": "152 min",
+      "poster": "oppenheimer",
+      "trailerUrl": "https://www.youtube.com/watch?v=uYPbbksJxIg",
+      "comingSoon": false
+    },
+    {
+      "name": "3 Idiots",
+      "genre": "Comedy",
+      "duration": "152 min",
+      "poster": "idiots",
+      "trailerUrl": "https://www.youtube.com/watch?v=K0eDlFX9GMc",
+      "comingSoon": false
+    },
+    {
+      "name": "Dr Strange",
+      "genre": "Action",
+      "duration": "152 min",
+      "poster": "strange",
+      "trailerUrl": "https://www.youtube.com/watch?v=aWzlQ2N6qqg",
+      "comingSoon": false
+    },
+    {
+      "name": "Oppenheimer 2",
+      "genre": "Drama",
+      "duration": "160 min",
+      "poster": "oppenheimer",
+      "trailerUrl": "https://www.youtube.com/watch?v=uYPbbksJxIg",
+      "comingSoon": true
+    },
+    {
+      "name": "3 Idiots Returns",
+      "genre": "Comedy",
+      "duration": "145 min",
+      "poster": "idiots",
+      "trailerUrl": "https://www.youtube.com/watch?v=K0eDlFX9GMc",
+      "comingSoon": true
+    },
+    {
+      "name": "Dr Strange 3",
+      "genre": "Action",
+      "duration": "140 min",
+      "poster": "strange",
+      "trailerUrl": "https://www.youtube.com/watch?v=aWzlQ2N6qqg",
+      "comingSoon": true
+    }
+  ]
+}

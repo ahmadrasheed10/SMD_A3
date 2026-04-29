@@ -2,14 +2,23 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+import android.view.Gravity;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +26,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toast.makeText(this, "Welcome to CineFAST", Toast.LENGTH_SHORT).show();
         Log.d("CineFAST", "MainActivity launched");
+        sessionManager = new SessionManager(this);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.navigationView);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView emailTv = headerView.findViewById(R.id.tvDrawerEmail);
+        emailTv.setText(sessionManager.getUserEmail());
+
+        setupDrawerNavigation();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new HomeFragment())
                     .commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
+    }
+
+    private void setupDrawerNavigation() {
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, new HomeFragment())
+                        .commit();
+            } else if (id == R.id.nav_my_bookings) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainer, new MyBookingsFragment())
+                        .commit();
+            } else if (id == R.id.nav_logout) {
+                sessionManager.clearSession();
+                startActivity(new android.content.Intent(this, LoginActivity.class));
+                finishAffinity();
+            }
+
+            drawerLayout.closeDrawers();
+            return true;
+        });
+    }
+
+    public void openDrawer() {
+        if (drawerLayout != null) {
+            drawerLayout.openDrawer(Gravity.START);
         }
     }
 
@@ -72,5 +120,6 @@ public class MainActivity extends AppCompatActivity {
     public void navigateToHome() {
         getSupportFragmentManager().popBackStack(null,
                 androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
 }

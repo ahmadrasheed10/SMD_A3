@@ -14,14 +14,12 @@ public class SessionManager {
     public SessionManager(Context context) {
         preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
-
     public void saveLoginSession(String email) {
         preferences.edit()
                 .putBoolean(KEY_IS_LOGGED_IN, true)
                 .putString(KEY_USER_EMAIL, email)
                 .apply();
     }
-
     public boolean isLoggedIn() {
         return preferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }

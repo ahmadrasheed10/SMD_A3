@@ -24,13 +24,7 @@ public class NowShowingFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerMovies);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<Movie> nowShowingMovies = new ArrayList<>();
-        nowShowingMovies.add(new Movie("The Oppenheimer", "Action", "152 min",
-                R.drawable.oppenheimer, "https://www.youtube.com/watch?v=uYPbbksJxIg"));
-        nowShowingMovies.add(new Movie("3 Idiots", "Comedy", "152 min",
-                R.drawable.idiots, "https://www.youtube.com/watch?v=K0eDlFX9GMc"));
-        nowShowingMovies.add(new Movie("Dr Strange", "Action", "152 min",
-                R.drawable.strange, "https://www.youtube.com/watch?v=aWzlQ2N6qqg"));
+        ArrayList<Movie> nowShowingMovies = MovieRepository.loadMovies(requireContext(), false);
 
         MovieAdapter adapter = new MovieAdapter(getActivity(), nowShowingMovies, false);
         recyclerView.setAdapter(adapter);
