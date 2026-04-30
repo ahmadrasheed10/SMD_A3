@@ -38,11 +38,8 @@ public class SnacksFragment extends Fragment {
         ListView listViewSnacks = view.findViewById(R.id.listViewSnacks);
         Button btnConfirm = view.findViewById(R.id.btnConfirm);
 
-        snackList = new ArrayList<>();
-        snackList.add(new Snack("Popcorn", 500, R.drawable.popcorn));
-        snackList.add(new Snack("Cold Drink", 150, R.drawable.drink));
-        snackList.add(new Snack("Candy", 100, R.drawable.candy));
-        snackList.add(new Snack("Nachos", 250, R.drawable.nachos));
+        SnackDatabaseHelper databaseHelper = new SnackDatabaseHelper(requireContext());
+        snackList = databaseHelper.getAllSnacks();
 
         adapter = new SnackAdapter(getContext(), snackList);
         listViewSnacks.setAdapter(adapter);

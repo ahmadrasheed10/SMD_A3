@@ -21,6 +21,11 @@ public class MyBookingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_bookings, container, false);
 
         TextView bookingDetails = view.findViewById(R.id.tvBookingDetails);
+        view.findViewById(R.id.btnBackHome).setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).navigateToHome();
+            }
+        });
 
         SharedPreferences prefs = requireActivity().getSharedPreferences("BookingPrefs", Context.MODE_PRIVATE);
         String movie = prefs.getString("LastMovie", null);

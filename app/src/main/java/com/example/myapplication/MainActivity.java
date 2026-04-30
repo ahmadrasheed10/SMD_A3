@@ -37,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerNavigation();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new HomeFragment())
-                    .commit();
-            navigationView.setCheckedItem(R.id.nav_home);
+            showHomeFragment();
         }
     }
 
@@ -49,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.nav_home) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainer, new HomeFragment())
-                        .commit();
+                showHomeFragment();
             } else if (id == R.id.nav_my_bookings) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragmentContainer, new MyBookingsFragment())
@@ -65,6 +60,29 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawers();
             return true;
         });
+    }
+
+    private void showHomeFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, new HomeFragment())
+                .commit();
+        navigationView.setCheckedItem(R.id.nav_home);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(Gravity.START)) {
+            drawerLayout.closeDrawer(Gravity.START);
+            return;
+        }
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+        if (!(currentFragment instanceof HomeFragment)) {
+            showHomeFragment();
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     public void openDrawer() {
@@ -120,6 +138,6 @@ public class MainActivity extends AppCompatActivity {
     public void navigateToHome() {
         getSupportFragmentManager().popBackStack(null,
                 androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        navigationView.setCheckedItem(R.id.nav_home);
+        showHomeFragment();
     }
 }

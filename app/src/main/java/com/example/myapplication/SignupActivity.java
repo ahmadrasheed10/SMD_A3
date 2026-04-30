@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordEt;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference usersRef;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +45,24 @@ public class SignupActivity extends AppCompatActivity {
         passwordEt = findViewById(R.id.et_password);
         Button signupBtn = findViewById(R.id.btn_signup);
         ImageView backBtn = findViewById(R.id.iv_back);
+        ImageView togglePasswordIv = findViewById(R.id.iv_toggle_password);
 
         backBtn.setOnClickListener(v -> finish());
+        togglePasswordIv.setOnClickListener(v -> togglePasswordVisibility(togglePasswordIv));
         signupBtn.setOnClickListener(v -> registerUser());
+    }
+
+    private void togglePasswordVisibility(ImageView toggleIcon) {
+        if (isPasswordVisible) {
+            passwordEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            toggleIcon.setImageResource(android.R.drawable.ic_menu_view);
+            isPasswordVisible = false;
+        } else {
+            passwordEt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            toggleIcon.setImageResource(android.R.drawable.presence_invisible);
+            isPasswordVisible = true;
+        }
+        passwordEt.setSelection(passwordEt.getText().length());
     }
 
     private void registerUser() {
@@ -79,30 +97,22 @@ public class SignupActivity extends AppCompatActivity {
 
                         try {
                             usersRef = FirebaseDatabase.getInstance().getReference("users");
+                            usersRef.child(uid).setValue(userData).addOnFailureListener(e ->
+                                    Toast.makeText(
+                                            this,
+                                            "Account created, but profile save failed.",
+                                            Toast.LENGTH_SHORT
+                                    ).show()
+                            );
                         } catch (Exception e) {
                             Log.e(TAG, "Realtime Database is not configured", e);
-                            Toast.makeText(
-                                    this,
-                                    "Account created, but Firebase Realtime Database is not configured yet.",
-                                    Toast.LENGTH_LONG
-                            ).show();
-                            return;
                         }
 
-                        usersRef.child(uid).setValue(userData).addOnCompleteListener(saveTask -> {
-                            if (saveTask.isSuccessful()) {
-                                new SessionManager(this).saveLoginSession(email);
-                                Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finishAffinity();
-                            } else {
-                                String message = saveTask.getException() != null
-                                        ? saveTask.getException().getMessage()
-                                        : "Failed to store user data";
-                                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        new SessionManager(this).saveLoginSession(email);
+                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finishAffinity();
                     } else {
                         Exception exception = task.getException();
                         Log.e(TAG, "Signup failed", exception);
