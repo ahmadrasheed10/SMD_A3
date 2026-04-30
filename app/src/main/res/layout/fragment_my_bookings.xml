@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 
         <ImageView
@@ -23,23 +24,51 @@
 
         <TextView
             android:id="@+id/tvBookingTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="My Bookings"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="My Booking"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivMenuDots"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Menu"
+            android:src="@drawable/ic_more_vert" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvBookingDetails"
+    <EditText
+        android:id="@+id/etSearchBookings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_auth_field"
         android:layout_marginTop="18dp"
+        android:background="@drawable/bg_auth_field"
+        android:hint="Search"
+        android:inputType="text"
         android:padding="16dp"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textColorHint="#A5A5A5"
+        android:textSize="14sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBookings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tvNoBookings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="No bookings found yet."
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
 
 </LinearLayout>

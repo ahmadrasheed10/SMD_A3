@@ -14,6 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,8 +66,10 @@ public class TicketSummaryFragment extends Fragment {
             }
         }
 
-        String date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
-        String time = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date());
+        long bookingTimestamp = System.currentTimeMillis() + (60L * 60L * 1000L);
+        Date bookingDate = new Date(bookingTimestamp);
+        String date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(bookingDate);
+        String time = new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(bookingDate);
 
         txtDetails.setText("Stars (90' Mall)  |  Hall 1 \n" + date + "  |  " + time);
 
@@ -112,9 +119,39 @@ public class TicketSummaryFragment extends Fragment {
             editor.apply();
         }
 
+        saveBookingToFirebase(grandTotal, date, time, bookingTimestamp);
         view.findViewById(R.id.btnSend).setOnClickListener(v -> sendTicket(grandTotal, date, time));
 
         return view;
+    }
+
+    private void saveBookingToFirebase(int grandTotal, String date, String time, long bookingTimestamp) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null || movie == null) {
+            return;
+        }
+
+        String userId = user.getUid();
+        DatabaseReference bookingsRef = FirebaseDatabase.getInstance()
+                .getReference("bookings")
+                .child(userId);
+        String bookingId = bookingsRef.push().getKey();
+        if (bookingId == null) {
+            return;
+        }
+
+        ArrayList<String> safeSeats = seatsList != null ? seatsList : new ArrayList<>();
+        Booking booking = new Booking(
+                bookingId,
+                userId,
+                movie,
+                safeSeats,
+                grandTotal,
+                date,
+                time,
+                bookingTimestamp
+        );
+        bookingsRef.child(bookingId).setValue(booking);
     }
 
     private void sendTicket(int grandTotal, String date, String time) {
