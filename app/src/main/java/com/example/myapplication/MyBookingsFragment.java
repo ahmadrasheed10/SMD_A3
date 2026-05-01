@@ -55,6 +55,8 @@ public class MyBookingsFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             Toast.makeText(requireContext(), "Please login again", Toast.LENGTH_SHORT).show();
+            startActivity(new android.content.Intent(requireContext(), LoginActivity.class));
+            requireActivity().finishAffinity();
             emptyStateTv.setVisibility(View.VISIBLE);
             return view;
         }

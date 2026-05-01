@@ -13,15 +13,11 @@ public class HomePagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 0) {
-            return new NowShowingFragment();
-        } else {
-            return new ComingSoonFragment();
-        }
+        return new NowShowingFragment();
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 1;
     }
 }

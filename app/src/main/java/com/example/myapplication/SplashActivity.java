@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_TIME = 5000;
@@ -26,7 +28,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(getMainLooper()).postDelayed(() -> {
             SessionManager sessionManager = new SessionManager(SplashActivity.this);
             Intent intent;
-            if (sessionManager.isLoggedIn()) {
+            boolean hasFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() != null;
+            if (sessionManager.isLoggedIn() && hasFirebaseUser) {
                 intent = new Intent(SplashActivity.this, MainActivity.class);
             } else {
                 intent = new Intent(SplashActivity.this, OnboardingActivity.class);

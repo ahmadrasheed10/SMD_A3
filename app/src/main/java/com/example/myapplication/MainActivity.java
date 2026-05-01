@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
             } else if (id == R.id.nav_logout) {
                 sessionManager.clearSession();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new android.content.Intent(this, LoginActivity.class));
                 finishAffinity();
             }

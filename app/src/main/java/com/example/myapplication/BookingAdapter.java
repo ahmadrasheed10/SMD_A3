@@ -49,6 +49,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         int ticketsCount = booking.getSeats() != null ? booking.getSeats().size() : 0;
         holder.txtTickets.setText("Tickets: " + ticketsCount + " | Total: RS " + booking.getTotalPrice());
         holder.imgPoster.setImageResource(resolvePosterByMovieName(booking.getMovieName()));
+        boolean canCancel = isFutureBooking(booking);
+        holder.btnCancel.setEnabled(canCancel);
+        holder.btnCancel.setAlpha(canCancel ? 1.0f : 0.35f);
 
         holder.btnCancel.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
                 .setTitle("Cancel Booking")

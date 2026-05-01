@@ -47,19 +47,10 @@ public class HomeFragment extends Fragment {
                     ContextCompat.getColorStateList(requireContext(), R.color.seat_available));
         });
 
-        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
 
         HomePagerAdapter pagerAdapter = new HomePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
-
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            if (position == 0) {
-                tab.setText("Now Showing");
-            } else {
-                tab.setText("Coming Soon");
-            }
-        }).attach();
 
         return view;
     }

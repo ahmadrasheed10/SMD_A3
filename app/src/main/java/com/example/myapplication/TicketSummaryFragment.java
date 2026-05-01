@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ public class TicketSummaryFragment extends Fragment {
     int ticketTotal;
     int snacksTotal;
     ArrayList<String> seatsList;
+    private boolean bookingSaved = false;
 
     @Nullable
     @Override
@@ -119,7 +121,9 @@ public class TicketSummaryFragment extends Fragment {
             editor.apply();
         }
 
-        saveBookingToFirebase(grandTotal, date, time, bookingTimestamp);
+        if (!bookingSaved) {
+            saveBookingToFirebase(grandTotal, date, time, bookingTimestamp);
+        }
         view.findViewById(R.id.btnSend).setOnClickListener(v -> sendTicket(grandTotal, date, time));
 
         return view;
@@ -151,7 +155,13 @@ public class TicketSummaryFragment extends Fragment {
                 time,
                 bookingTimestamp
         );
-        bookingsRef.child(bookingId).setValue(booking);
+        bookingsRef.child(bookingId).setValue(booking)
+                .addOnSuccessListener(unused -> bookingSaved = true)
+                .addOnFailureListener(e -> Toast.makeText(
+                        requireContext(),
+                        "Failed to save booking: " + e.getMessage(),
+                        Toast.LENGTH_SHORT
+                ).show());
     }
 
     private void sendTicket(int grandTotal, String date, String time) {
